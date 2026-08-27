@@ -1,5 +1,5 @@
 """
-🌈 AI Image Classifier using ViT
+AI Image Classifier using ViT
 Student Mini Project
 Streamlit + Hugging Face Transformers + PyTorch
 """
@@ -11,7 +11,7 @@ import torch
 
 
 # =========================================================
-# PAGE CONFIG
+# PAGE CONFIGURATION
 # =========================================================
 
 st.set_page_config(
@@ -26,134 +26,249 @@ st.set_page_config(
 # CUSTOM CSS
 # =========================================================
 
-st.markdown("""
+st.markdown(
+    """
 <style>
 
-/* Background */
+/* ================================
+   MAIN BACKGROUND
+================================ */
+
 .stApp {
-    background: linear-gradient(
-        135deg,
-        #fff0fb 0%,
-        #eef4ff 45%,
-        #eafff6 100%
-    );
+    background:
+        radial-gradient(circle at 10% 10%, #ffe4f3 0%, transparent 25%),
+        radial-gradient(circle at 90% 10%, #dbeafe 0%, transparent 25%),
+        radial-gradient(circle at 50% 100%, #dcfce7 0%, transparent 30%),
+        linear-gradient(135deg, #fff7fc, #f2f5ff);
 }
 
-/* Main container */
+
+/* ================================
+   MAIN CONTAINER
+================================ */
+
 .block-container {
     max-width: 950px;
     padding-top: 2rem;
     padding-bottom: 3rem;
 }
 
-/* Main title */
+
+/* ================================
+   TITLE
+================================ */
+
 .main-title {
     text-align: center;
-    font-size: 50px;
-    font-weight: 800;
+    font-size: 52px;
+    font-weight: 900;
+    margin-bottom: 5px;
+
     background: linear-gradient(
         90deg,
-        #ff1493,
-        #7b2cff,
+        #ec008c,
+        #8b2cff,
         #0066ff
     );
+
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* Subtitle */
+
+/* ================================
+   SUBTITLE
+================================ */
+
 .subtitle {
     text-align: center;
-    font-size: 19px;
+    font-size: 18px;
     color: #555;
     margin-bottom: 20px;
 }
 
-/* Model badge */
+
+/* ================================
+   MODEL BADGE
+================================ */
+
 .model-badge {
     background: linear-gradient(
         90deg,
         #fff0fa,
-        #eeeeff
+        #eeeaff
     );
+
     border: 2px solid #d8b4fe;
     border-radius: 30px;
-    padding: 12px;
+
+    padding: 12px 18px;
+
     text-align: center;
-    color: #5b21b6;
+
+    color: #6d28d9;
+
     font-weight: 700;
+
     margin-bottom: 25px;
 }
 
-/* Upload card */
+
+/* ================================
+   UPLOAD CARD
+================================ */
+
 .upload-card {
-    background: rgba(255,255,255,0.95);
-    padding: 30px;
-    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.96);
+
     border: 3px dashed #a855f7;
-    box-shadow: 0 10px 30px rgba(90,50,150,0.12);
+
+    border-radius: 25px;
+
+    padding: 30px;
+
     text-align: center;
+
+    box-shadow:
+        0 10px 35px rgba(100, 50, 150, 0.15);
+
     margin-bottom: 20px;
 }
 
-/* Section title */
+
+/* ================================
+   UPLOAD ICON
+================================ */
+
+.upload-icon {
+    font-size: 55px;
+}
+
+
+/* ================================
+   SECTION TITLE
+================================ */
+
 .section-title {
     font-size: 23px;
-    font-weight: 700;
+    font-weight: 800;
     color: #5b21b6;
     margin-bottom: 10px;
 }
 
-/* Prediction card */
+
+/* ================================
+   PREDICTION CARD
+================================ */
+
 .prediction-card {
     background: linear-gradient(
         135deg,
         #ffffff,
         #f4edff
     );
-    padding: 22px;
+
     border-radius: 22px;
+
     border-left: 7px solid #8b5cf6;
-    box-shadow: 0 8px 25px rgba(100,60,160,0.15);
+
+    padding: 22px;
+
+    box-shadow:
+        0 8px 25px rgba(100, 60, 160, 0.15);
+
+    margin-top: 10px;
 }
 
-/* Prediction */
+
+/* ================================
+   PREDICTED LABEL
+================================ */
+
 .predicted-label {
     font-size: 30px;
-    font-weight: 800;
+    font-weight: 900;
     color: #6d28d9;
     text-transform: capitalize;
 }
 
-/* Confidence */
+
+/* ================================
+   CONFIDENCE
+================================ */
+
 .confidence-number {
-    font-size: 28px;
-    font-weight: 800;
+    font-size: 30px;
+    font-weight: 900;
     color: #ec4899;
 }
 
-/* Info card */
+
+/* ================================
+   INFO CARD
+================================ */
+
 .info-card {
     background: linear-gradient(
         135deg,
         #e0f2fe,
         #ede9fe
     );
-    padding: 20px;
-    border-radius: 18px;
+
+    padding: 22px;
+
+    border-radius: 20px;
+
     margin-top: 20px;
+
     color: #312e81;
+
+    box-shadow:
+        0 6px 20px rgba(80, 70, 150, 0.10);
 }
 
-/* Footer */
+
+/* ================================
+   TOP 5 CARD
+================================ */
+
+.top-card {
+    background: white;
+
+    padding: 15px 20px;
+
+    border-radius: 16px;
+
+    margin-bottom: 10px;
+
+    box-shadow:
+        0 5px 15px rgba(80, 50, 130, 0.10);
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
 .footer {
     text-align: center;
+
     color: #777;
+
     font-size: 14px;
+
     margin-top: 35px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #ddd;
 }
 
-/* Sidebar */
+
+/* ================================
+   SIDEBAR
+================================ */
+
 [data-testid="stSidebar"] {
     background: linear-gradient(
         180deg,
@@ -163,26 +278,67 @@ st.markdown("""
     );
 }
 
-/* Buttons */
+
+/* ================================
+   BUTTON
+================================ */
+
 .stButton > button {
     border-radius: 15px;
-    font-weight: 700;
-    padding: 12px;
+
+    font-weight: 800;
+
+    min-height: 50px;
+
+    border: none;
+
+    transition: 0.3s;
 }
 
-/* Uploader */
+
+.stButton > button:hover {
+    transform: scale(1.02);
+}
+
+
+/* ================================
+   FILE UPLOADER
+================================ */
+
 [data-testid="stFileUploader"] {
     background: linear-gradient(
         135deg,
         #fff0fa,
         #eef2ff
     );
+
     border-radius: 18px;
+
     padding: 15px;
 }
 
+
+/* ================================
+   DIVIDER
+================================ */
+
+hr {
+    border: none;
+
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        #ec008c,
+        #8b2cff,
+        #0066ff
+    );
+}
+
 </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True
+)
 
 
 # =========================================================
@@ -192,7 +348,6 @@ st.markdown("""
 @st.cache_resource
 def load_model():
 
-    # Hugging Face model
     model_name = "google/vit-base-patch16-224"
 
     # Image processor
@@ -200,7 +355,7 @@ def load_model():
         model_name
     )
 
-    # Pre-trained ViT model
+    # Pre-trained model from Hugging Face
     model = ViTForImageClassification.from_pretrained(
         model_name
     )
@@ -227,7 +382,7 @@ def classify_image(image, processor, model):
     )
 
     # ---------------------------------------------
-    # Model prediction
+    # AI prediction
     # ---------------------------------------------
 
     with torch.no_grad():
@@ -249,31 +404,34 @@ def classify_image(image, processor, model):
 
     top5 = torch.topk(
         probabilities,
-        5
+        k=5
     )
 
     results = []
 
-    for score, class_idx in zip(
+    for score, class_index in zip(
         top5.values,
         top5.indices
     ):
 
         label = model.config.id2label[
-            class_idx.item()
+            class_index.item()
         ]
 
         confidence = score.item()
 
         results.append(
-            (label, confidence)
+            {
+                "label": label,
+                "confidence": confidence
+            }
         )
 
     return results
 
 
 # =========================================================
-# MAIN APP
+# MAIN FUNCTION
 # =========================================================
 
 def main():
@@ -289,22 +447,22 @@ def main():
 
     st.markdown(
         """
-        <div class="subtitle">
-        ✨ Upload an image and let Artificial Intelligence
-        identify what's inside it!
-        </div>
-        """,
+<div class="subtitle">
+✨ Upload an image and let Artificial Intelligence
+identify what's inside it!
+</div>
+""",
         unsafe_allow_html=True
     )
 
     st.markdown(
         """
-        <div class="model-badge">
-        🤗 Hugging Face &nbsp; • &nbsp;
-        🧠 Vision Transformer (ViT) &nbsp; • &nbsp;
-        📚 ImageNet 1000 Classes
-        </div>
-        """,
+<div class="model-badge">
+🤗 Hugging Face &nbsp; • &nbsp;
+🧠 Vision Transformer (ViT) &nbsp; • &nbsp;
+📚 ImageNet 1000 Classes
+</div>
+""",
         unsafe_allow_html=True
     )
 
@@ -323,63 +481,77 @@ def main():
 
         st.write(
             """
-            This project uses a pre-trained
-            **Vision Transformer (ViT)** model
-            from Hugging Face to classify images.
-            """
+This application uses a pre-trained
+**Vision Transformer (ViT)** model from
+Hugging Face to classify images.
+"""
         )
 
         st.markdown("### 🧠 Technologies")
 
         st.markdown(
             """
-            🐍 Python
+🐍 **Python**
 
-            ⚡ Streamlit
+⚡ **Streamlit**
 
-            🔥 PyTorch
+🔥 **PyTorch**
 
-            🤗 Hugging Face Transformers
+🤗 **Hugging Face**
 
-            🧠 Vision Transformer
-            """
+🧠 **Vision Transformer**
+"""
         )
 
         st.markdown("---")
 
+        st.markdown("### 📦 Model")
+
+        st.code(
+            "google/vit-base-patch16-224"
+        )
+
         st.info(
             """
-            💡 The model will be downloaded
-            automatically during the first run.
-            """
+💡 The model downloads automatically
+during the first run.
+"""
         )
 
 
     # =====================================================
-    # UPLOAD SECTION
+    # UPLOAD CARD
     # =====================================================
 
     st.markdown(
         """
-        <div class="upload-card">
+<div class="upload-card">
 
-            <div style="font-size:50px;">
-            ☁️
-            </div>
+<div class="upload-icon">
+☁️
+</div>
 
-            <h2>Upload Your Image</h2>
+<h2>Upload Your Image</h2>
 
-            <p>
-            📸 JPG &nbsp; • &nbsp;
-            JPEG &nbsp; • &nbsp;
-            PNG
-            </p>
+<p>
+📸 JPG &nbsp; • &nbsp;
+JPEG &nbsp; • &nbsp;
+PNG
+</p>
 
-        </div>
-        """,
+<p>
+✨ Let AI discover what's inside your image!
+</p>
+
+</div>
+""",
         unsafe_allow_html=True
     )
 
+
+    # =====================================================
+    # FILE UPLOADER
+    # =====================================================
 
     uploaded_file = st.file_uploader(
         "📤 Choose an image",
@@ -388,22 +560,120 @@ def main():
             "jpeg",
             "png"
         ],
-        help="Upload JPG, JPEG or PNG image"
+        help="Supported formats: JPG, JPEG and PNG"
     )
+
+
+    # =====================================================
+    # NO IMAGE
+    # =====================================================
+
+    if uploaded_file is None:
+
+        st.markdown(
+            """
+<div class="info-card">
+
+👆 <b>Upload an image to get started!</b>
+
+<br><br>
+
+📷 Upload your image
+
+<br>
+
+🧠 AI will analyze it
+
+<br>
+
+🏷️ Get the predicted object
+
+<br>
+
+📊 See the confidence score
+
+</div>
+""",
+            unsafe_allow_html=True
+        )
+
+
+        # -------------------------------------------------
+        # HOW IT WORKS
+        # -------------------------------------------------
+
+        with st.expander(
+            "💡 How does this AI Image Classifier work?"
+        ):
+
+            st.markdown(
+                """
+### 🔄 Classification Process
+
+**1️⃣ Upload Image**
+
+Upload a JPG, JPEG or PNG image.
+
+**2️⃣ Image Processing**
+
+The Hugging Face image processor
+prepares the image for the AI model.
+
+**3️⃣ Vision Transformer**
+
+The pre-trained
+`google/vit-base-patch16-224`
+model analyzes the image.
+
+**4️⃣ Classification**
+
+The model compares the image
+with ImageNet categories.
+
+**5️⃣ Top 5 Predictions**
+
+The five most likely categories
+are displayed.
+
+**6️⃣ Confidence Score**
+
+Each prediction receives a
+probability score.
+"""
+            )
 
 
     # =====================================================
     # IMAGE UPLOADED
     # =====================================================
 
-    if uploaded_file is not None:
+    else:
 
+        # ---------------------------------------------
         # Open image
-        image = Image.open(
-            uploaded_file
-        ).convert("RGB")
+        # ---------------------------------------------
+
+        try:
+
+            image = Image.open(
+                uploaded_file
+            ).convert("RGB")
+
+        except Exception:
+
+            st.error(
+                "❌ Unable to read this image."
+            )
+
+            return
+
 
         st.markdown("---")
+
+
+        # ---------------------------------------------
+        # Two columns
+        # ---------------------------------------------
 
         col1, col2 = st.columns(
             [1, 1],
@@ -412,17 +682,17 @@ def main():
 
 
         # =================================================
-        # IMAGE PREVIEW
+        # LEFT COLUMN
         # =================================================
 
         with col1:
 
             st.markdown(
                 """
-                <div class="section-title">
-                📷 Uploaded Image
-                </div>
-                """,
+<div class="section-title">
+📷 Uploaded Image
+</div>
+""",
                 unsafe_allow_html=True
             )
 
@@ -437,35 +707,52 @@ def main():
 
 
         # =================================================
-        # AI PREDICTION
+        # RIGHT COLUMN
         # =================================================
 
         with col2:
 
             st.markdown(
                 """
-                <div class="section-title">
-                🤖 AI Prediction
-                </div>
-                """,
+<div class="section-title">
+🤖 AI Prediction
+</div>
+""",
                 unsafe_allow_html=True
             )
 
 
-            # Load model
-            with st.spinner(
-                "🧠 Loading AI model..."
-            ):
+            # -----------------------------------------
+            # CLASSIFY BUTTON
+            # -----------------------------------------
 
-                processor, model = load_model()
-
-
-            # Classify button
-            if st.button(
+            classify_button = st.button(
                 "🔍 CLASSIFY IMAGE",
                 type="primary",
                 use_container_width=True
-            ):
+            )
+
+
+            # -----------------------------------------
+            # CLASSIFICATION
+            # -----------------------------------------
+
+            if classify_button:
+
+                # -------------------------------------
+                # Load model
+                # -------------------------------------
+
+                with st.spinner(
+                    "🧠 Loading Hugging Face AI model..."
+                ):
+
+                    processor, model = load_model()
+
+
+                # -------------------------------------
+                # Predict
+                # -------------------------------------
 
                 with st.spinner(
                     "✨ AI is analyzing your image..."
@@ -478,80 +765,81 @@ def main():
                     )
 
 
-                # =================================================
-                # BEST PREDICTION
-                # =================================================
+                # -------------------------------------
+                # Best result
+                # -------------------------------------
 
-                best_label = results[0][0]
-                best_confidence = results[0][1]
+                best_result = results[0]
 
-                confidence_pct = (
+                best_label = best_result["label"]
+
+                best_confidence = best_result[
+                    "confidence"
+                ]
+
+                confidence_percentage = (
                     best_confidence * 100
                 )
 
+
+                # -------------------------------------
+                # Success message
+                # -------------------------------------
 
                 st.success(
                     "✅ Classification Complete!"
                 )
 
 
-                st.markdown(
-                    """
-                    <div class="prediction-card">
-
-                    <h3>🏆 Best Prediction</h3>
-
-                    """,
-                    unsafe_allow_html=True
-                )
-
+                # -------------------------------------
+                # Prediction card
+                # -------------------------------------
 
                 st.markdown(
                     f"""
-                    <div class="predicted-label">
-                    {best_label}
-                    </div>
-                    """,
+<div class="prediction-card">
+
+<h3>🏆 Best Prediction</h3>
+
+<div class="predicted-label">
+{best_label}
+</div>
+
+<br>
+
+<b>📊 Confidence</b>
+
+</div>
+""",
                     unsafe_allow_html=True
                 )
 
 
-                st.markdown(
-                    "</div>",
-                    unsafe_allow_html=True
-                )
-
-
-                # =================================================
-                # CONFIDENCE
-                # =================================================
-
-                st.markdown(
-                    "### 📊 Confidence"
-                )
-
+                # -------------------------------------
+                # Confidence progress
+                # -------------------------------------
 
                 st.progress(
                     best_confidence,
-                    text=f"{confidence_pct:.2f}%"
+                    text=f"{confidence_percentage:.2f}%"
                 )
 
 
                 st.markdown(
                     f"""
-                    <div class="confidence-number">
-                    {confidence_pct:.2f}%
-                    </div>
-                    """,
+<div class="confidence-number">
+{confidence_percentage:.2f}%
+</div>
+""",
                     unsafe_allow_html=True
                 )
 
 
-                # =================================================
-                # CONFIDENCE MESSAGE
-                # =================================================
+                # -------------------------------------
+                # Confidence interpretation
+                # -------------------------------------
 
-                if confidence_pct >= 90:
+                if confidence_percentage >= 90:
 
                     st.success(
                         "🌟 The model is highly confident!"
@@ -559,20 +847,17 @@ def main():
 
                     st.balloons()
 
-
-                elif confidence_pct >= 70:
+                elif confidence_percentage >= 70:
 
                     st.info(
                         "👍 The model is fairly confident."
                     )
 
-
-                elif confidence_pct >= 50:
+                elif confidence_percentage >= 50:
 
                     st.warning(
                         "🤔 The model has moderate confidence."
                     )
-
 
                 else:
 
@@ -582,124 +867,58 @@ def main():
                     )
 
 
-        # =================================================
-        # TOP 5 RESULTS
-        # =================================================
+                # =================================================
+                # TOP 5 PREDICTIONS
+                # =================================================
 
-        st.markdown("---")
-
-        st.markdown(
-            "## 🏅 Top 5 Predictions"
-        )
-
-        st.caption(
-            "The model's five most likely ImageNet classes:"
-        )
-
-
-        for i, (label, confidence) in enumerate(
-            results,
-            start=1
-        ):
-
-            percentage = confidence * 100
-
-            col_a, col_b = st.columns(
-                [3, 1]
-            )
-
-            with col_a:
+                st.markdown("---")
 
                 st.markdown(
-                    f"**{i}. 🏷️ {label}**"
+                    "## 🏅 Top 5 Predictions"
                 )
 
-            with col_b:
-
-                st.markdown(
-                    f"**{percentage:.2f}%**"
+                st.caption(
+                    "Here are the five most likely ImageNet classes:"
                 )
 
-            st.progress(
-                confidence
-            )
+
+                for index, result in enumerate(
+                    results,
+                    start=1
+                ):
+
+                    label = result["label"]
+
+                    confidence = result[
+                        "confidence"
+                    ]
+
+                    percentage = (
+                        confidence * 100
+                    )
 
 
-    # =====================================================
-    # NO IMAGE UPLOADED
-    # =====================================================
+                    st.markdown(
+                        f"""
+<div class="top-card">
 
-    else:
+<b>{index}. 🏷️ {label}</b>
 
-        st.markdown(
-            """
-            <div class="info-card">
+<br>
 
-            👆 <b>Upload an image to get started!</b>
+<span>
+Confidence: {percentage:.2f}%
+</span>
 
-            <br><br>
-
-            📷 The AI will analyze your image.
-
-            <br>
-
-            🧠 ViT will process the image.
-
-            <br>
-
-            🏷️ The predicted object will be displayed.
-
-            <br>
-
-            📊 You will also get a confidence score.
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+</div>
+""",
+                        unsafe_allow_html=True
+                    )
 
 
-        # =================================================
-        # HOW IT WORKS
-        # =================================================
-
-        with st.expander(
-            "💡 How does this AI Image Classifier work?"
-        ):
-
-            st.markdown(
-                """
-                ### 🔄 AI Classification Process
-
-                **1️⃣ Upload Image**
-
-                Upload a JPG, JPEG or PNG image.
-
-                **2️⃣ Preprocessing**
-
-                The image is processed using the
-                Hugging Face ViT image processor.
-
-                **3️⃣ Vision Transformer**
-
-                The pre-trained
-                `google/vit-base-patch16-224`
-                model analyzes the image.
-
-                **4️⃣ Prediction**
-
-                The model compares the image against
-                ImageNet categories.
-
-                **5️⃣ Top 5 Results**
-
-                The five most likely classes are displayed.
-
-                **6️⃣ Confidence**
-
-                Each prediction has a probability score.
-                """
-            )
+                    st.progress(
+                        confidence
+                    )
 
 
     # =====================================================
@@ -708,26 +927,29 @@ def main():
 
     st.markdown(
         """
-        <div class="footer">
+<div class="footer">
 
-        🌈 AI Image Classifier
+🌈 <b>AI Image Classifier</b>
 
-        <br>
+<br><br>
 
-        Student Mini Project
+Student Mini Project
 
-        <br>
+<br>
 
-        🐍 Python • ⚡ Streamlit • 🔥 PyTorch • 🤗 Hugging Face
+🐍 Python &nbsp; • &nbsp;
+⚡ Streamlit &nbsp; • &nbsp;
+🔥 PyTorch &nbsp; • &nbsp;
+🤗 Hugging Face
 
-        </div>
-        """,
+</div>
+""",
         unsafe_allow_html=True
     )
 
 
 # =========================================================
-# RUN APP
+# RUN APPLICATION
 # =========================================================
 
 if __name__ == "__main__":
